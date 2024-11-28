@@ -1,5 +1,6 @@
 package com.example.jobportal.config;
 
+import com.example.jobportal.util.ConstantsUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,9 +20,9 @@ public class CusomAuthenticationSuccessHandler implements AuthenticationSuccessH
         String username=userDetails.getUsername();
         System.out.println("The user name "+username +"is logged in ");
         boolean hasJobSeekerRole= authentication.getAuthorities().stream().anyMatch(
-                authority -> authority.getAuthority().equals("Job Seeker"));
+                authority -> authority.getAuthority().equals(ConstantsUtil.ROLE_JOB_SEEKER));
         boolean hasJobRecruiterRole= authentication.getAuthorities().stream().anyMatch(
-                authority -> authority.getAuthority().equals("Recruiter"));
+                authority -> authority.getAuthority().equals(ConstantsUtil.ROLE_RECRUITER));
         if (hasJobSeekerRole || hasJobRecruiterRole) {
             response.sendRedirect("/dashboard/");
         }

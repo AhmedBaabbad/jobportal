@@ -6,6 +6,7 @@ import com.example.jobportal.model.Users;
 import com.example.jobportal.repository.JobSeekerProfileRepository;
 import com.example.jobportal.repository.RecruiterProfileRepository;
 import com.example.jobportal.repository.UsersRepository;
+import com.example.jobportal.util.ConstantsUtil;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -60,7 +61,7 @@ public class UsersService {
             String username = authentication.getName();
             Users user = usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("username not found"));
             int userId = user.getUserId();
-            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority(ConstantsUtil.ROLE_RECRUITER))) {
                 return recruiterProfileRepository.findById(userId).orElse(new RecruiterProfile());
             } else {
                 return jobSeekerProfileRepository.findById(userId).orElse(new JobSeekerProfile());
