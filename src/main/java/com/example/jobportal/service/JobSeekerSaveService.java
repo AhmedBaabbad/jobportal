@@ -4,6 +4,7 @@ import com.example.jobportal.model.JobPostActivity;
 import com.example.jobportal.model.JobSeekerProfile;
 import com.example.jobportal.model.JobSeekerSave;
 import com.example.jobportal.repository.JobSeekerSaveRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,11 @@ public class JobSeekerSaveService {
 
     public List<JobSeekerSave> getJobsCandidates (JobPostActivity job){
         return jobSeekerSaveRepository.findByJob(job);
+    }
+
+
+    public void addNew(JobSeekerSave jobSeekerSave) {
+
+        jobSeekerSaveRepository.save(jobSeekerSave);
     }
 }
